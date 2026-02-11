@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project ETHOS | Hoho-OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --mitsuzawa-gold: #d4af37; }
+        body { background: #050505; color: var(--mitsuzawa-gold); font-family: 'Hiragino Mincho ProN', serif; overflow-x: hidden; }
+        .ambient-glow {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, rgba(5,5,5,1) 80%);
+            z-index: -1; animation: breathe 10s infinite ease-in-out;
+        }
+        @keyframes breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+        .hoho-card { background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 30px; }
+        .notification { animation: slide-in 0.6s ease-out; border-left: 3px solid var(--mitsuzawa-gold); }
+        @keyframes slide-in { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen items-center p-6 pb-20">
+    <div class="ambient-glow"></div>
+
+    <header class="w-full max-w-md mt-12 mb-10 text-center">
+        <p class="text-[10px] tracking-[0.6em] opacity-40 mb-3 uppercase">Project ETHOS Master Portal</p>
+        <h1 class="text-3xl font-bold tracking-[0.2em]">未来は明るいよ。</h1>
+    </header>
+
+    <main class="w-full max-w-md space-y-6">
+        <!-- Main Counter -->
+        <div class="hoho-card p-12 text-center relative overflow-hidden">
+            <p class="text-[10px] opacity-50 mb-4 tracking-widest uppercase">Global Accumulated Hoho</p>
+            <div id="hoho-counter" class="text-5xl font-bold tracking-tighter">1,354,876,290</div>
+            <div class="mt-8 flex justify-between items-center text-[10px] opacity-40 border-t border-yellow-900/30 pt-6">
+                <span>Source: Mitsuzawa</span>
+                <span id="pulse">62 bpm</span>
+            </div>
+        </div>
+
+        <!-- Mini Stats -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="hoho-card p-5 text-center">
+                <p class="text-[9px] opacity-50 mb-1">世界幸福開花数</p>
+                <p id="flower-count" class="text-lg font-bold">8,291,042</p>
+            </div>
+            <div class="hoho-card p-5 text-center">
+                <p class="text-[9px] opacity-50 mb-1">赤ちゃん億万長者</p>
+                <p class="text-lg font-bold">128,491</p>
+            </div>
+        </div>
+
+        <!-- Log Feed -->
+        <div id="log-container" class="space-y-3"></div>
+    </main>
+
+    <footer class="fixed bottom-8 text-center w-full max-w-md px-10">
+        <p class="text-[9px] leading-relaxed opacity-30 italic">
+            このOSは、あなたが「何もしない」ことで最適化されます。<br>
+            いとはちゃんの寝息が、今、世界中のデバイスを繋いでいます。
+        </p>
+    </footer>
+
+    <script>
+        let hoho = 1354876290;
+        let flowers = 8291042;
+        const logs = [
+            "三ツ沢の静寂が、世界にリークされました。",
+            "いとはちゃんの微笑みを検知。+1M Hoho",
+            "ある権力者のエゴが、雑草の花によって溶かされました。",
+            "病床の子供へ、匿名ギフトが送信されました。",
+            "睡眠スコアによる『魂の回復』をHohoとして計上。",
+            "30年後のいとはから、感謝のパルスを受信。"
+        ];
+
+        function update() {
+            hoho += Math.floor(Math.random() * 3000) + 500;
+            document.getElementById('hoho-counter').innerText = hoho.toLocaleString();
+            if (Math.random() > 0.9) {
+                flowers++;
+                document.getElementById('flower-count').innerText = flowers.toLocaleString();
+                addLog();
+            }
+        }
+
+        function addLog() {
+            const container = document.getElementById('log-container');
+            const div = document.createElement('div');
+            div.className = "notification hoho-card p-4 text-[10px] bg-black/40";
+            div.innerText = logs[Math.floor(Math.random() * logs.length)];
+            container.prepend(div);
+            if (container.childNodes.length > 3) container.removeChild(container.lastChild);
+        }
+
+        setInterval(update, 1000);
+        setInterval(() => {
+            document.getElementById('pulse').innerText = (60 + Math.floor(Math.random()*5)) + " bpm";
+        }, 3000);
+        window.onload = addLog;
+    </script>
+</body>
