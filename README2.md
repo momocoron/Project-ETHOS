@@ -1,0 +1,17 @@
+{
+  "name": "hoho-ecosystem-os",
+  "version": "8.0.0",
+  "private": false,
+  "description": "The Universal Happiness OS (Singularity v8.0) - Evolution of Project ETHOS",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": "^0.284.0",
+    "firebase": "^10.4.0",
+    "tailwindcss": "^3.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  }
+}
